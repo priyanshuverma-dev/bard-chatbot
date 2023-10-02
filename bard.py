@@ -39,7 +39,7 @@ if __name__ == "__main__":
         query = voice_input.get_user_query()
         print(f"You said: {query}\n")
         if query == "error":
-            pass
+            continue
 
         if "exit" in query:
             audio = bard.speech(
