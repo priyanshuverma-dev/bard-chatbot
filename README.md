@@ -1,4 +1,3 @@
-
 # Bard Chatbot with Voice Input and Audio Playback
 
 ![Bard Chatbot](chatbot.png)
@@ -18,7 +17,7 @@ Before getting started, make sure you have the following dependencies installed:
 You can install the required Python libraries using pip:
 
 ```bash
-pip install pygame SpeechRecognition python-dotenv bardapi
+pip install -r requirements.txt
 ```
 
 ## Configuration
@@ -32,6 +31,27 @@ pip install pygame SpeechRecognition python-dotenv bardapi
    ```
 
 2. Make sure you have an active microphone connected to your system.
+
+3. (Optional) Make changes in
+   `.venv\Lib\site-packages\bardapi\core.py`
+   if gives any error like requests not found.
+
+add at top:
+
+```python
+import requests
+```
+
+4. (Optional) Make changes in
+   `..venv\Lib\site-packages\bardapi\models\tools\map.py`
+   if gives any error like Tuple not found.
+
+add at top:
+
+```python
+from typing import Optional, Tuple, List
+
+```
 
 ## Usage
 
@@ -64,7 +84,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Thanks to the creators of Bard API for providing powerful natural language processing capabilities.
 - Special thanks to the open-source community for the libraries used in this project.
-
-
 
 Replace `your_secure_1PSID_token`, `your_secure_1PSIDCC_token`, and `your_secure_1PSIDTS_token` in the `.env` section with your actual Bard API tokens.
