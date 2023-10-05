@@ -3,7 +3,9 @@ from bardapi import BardCookies, Bard
 import io
 from pygame import mixer
 from dotenv import load_dotenv
+import webbrowser
 import os
+import re
 
 # My Own Pacakges
 from packages import voice_input
@@ -30,7 +32,7 @@ print(f"My tokens is: {bard_dict}\n")
 # initializing bard from chat and pygame for audio
 mixer.init()
 bard = BardCookies(cookie_dict=bard_dict, language="english")
-
+website_keywords = ["open", "please open", "navigate", "fire"]
 
 if __name__ == "__main__":
     # query = input("Enter your query: ")
@@ -57,6 +59,21 @@ if __name__ == "__main__":
             while mixer.music.get_busy():
                 pass
             exit()
+
+        for keyword in website_keywords:
+            if keyword in query:
+                url = query.split(keyword, 1)[-1].strip()
+                if url:
+                    if not url.startswith("http://") or not url.startswith("https://"):
+                        url = "http://" + url
+                    pattern = r'[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+                    match = re.search(pattern, url)
+                    if match == None:
+                        url = url + ".com"
+                    url = url.replace(" ", "")
+                    webbrowser.open(url)
+            break
+        continue
 
         reply = bard.get_answer(query)["content"]
         audio = bard.speech(reply)
